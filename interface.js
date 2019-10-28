@@ -156,7 +156,7 @@ superAList.prototype.map = function (callback) {
 };
 
 superAList.prototype.reduce = function(callback, initialVal) {
-    var accumulator = (initialVal === undefined) ? undefined : initialVal;
+    const accumulator = (initialVal === undefined) ? undefined : initialVal;
     for (var i = 0; i < this.length; i++) {
         if (accumulator !== undefined)
             accumulator = callback.call(undefined, accumulator, this.collection[i], i, this.collection);
