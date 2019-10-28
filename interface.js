@@ -149,8 +149,8 @@ const SAList = new superAList();
 
 superAList.prototype.map = function (callback) {
     const resultArray = [];
-    for (let i = 0; i < this.length; index++) {
-        resultArray.push(callback(this[i], i, this));
+    for (let i = 0; i < this.length; i++) {
+        resultArray.push(callback(this.collection[i], i, this.collection));
     }
     return resultArray;
 };
@@ -159,7 +159,7 @@ superAList.prototype.reduce = function(callback, initialVal) {
     var accumulator = (initialVal === undefined) ? undefined : initialVal;
     for (var i = 0; i < this.length; i++) {
         if (accumulator !== undefined)
-            accumulator = callback.call(undefined, accumulator, this[i], i, this);
+            accumulator = callback.call(undefined, accumulator, this.collection[i], i, this.collection);
         else
             accumulator = this[i];
     }
