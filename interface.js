@@ -149,15 +149,25 @@ const SAList = new SuperAlist();
 
 SuperAlist.prototype.map = function (callback) {
     const resultArray = [];
+<<<<<<< HEAD
     for (let i = 0; i < this.collection.length; i++) {
+=======
+    for (let i = 0; i < this.length; i++) {
+>>>>>>> 60f4065ea46a173504639d6453748fc4ebfecdb4
         resultArray.push(callback(this.collection[i], i, this.collection));
     }
     return resultArray;
 };
 
+<<<<<<< HEAD
 SuperAlist.prototype.reduce = function(callback, initialVal) {
     var accumulator = (initialVal === undefined) ? undefined : initialVal;
     for (var i = 0; i < this.collection.length; i++) {
+=======
+superAList.prototype.reduce = function(callback, initialVal) {
+    const accumulator = (initialVal === undefined) ? undefined : initialVal;
+    for (var i = 0; i < this.length; i++) {
+>>>>>>> 60f4065ea46a173504639d6453748fc4ebfecdb4
         if (accumulator !== undefined)
             accumulator = callback.call(undefined, accumulator, this.collection[i], i, this.collection);
         else
