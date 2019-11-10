@@ -467,6 +467,61 @@ describe('Array list', function () {
             assert.equal(exp, act)
         })
     })
+    describe('Super AList', function () {
+        beforeEach(function () {
+            SAList.clearList();
+        });
+
+        describe('Map mathod' , function () {
+            it('Map get argument in view of callback function with one arg and return new array' , function () {
+                const exp = [2 , 4 , 6 , 8];
+                SAList.push(1);
+                SAList.push(2);
+                SAList.push(3);
+                SAList.push(4);
+                const act = SAList.map(x => x * 2);
+
+                assert.deepEqual(exp , act);
+            });
+
+            it('Map get argument in view of callback function with one arg and return new array' , function () {
+                const exp = [3 , 6 , 9 , 12];
+                SAList.push(1);
+                SAList.push(2);
+                SAList.push(3);
+                SAList.push(4);
+                const act = SAList.map(function (val){return val*3});
+
+                assert.deepEqual(exp , act);
+            });
+        });
+        describe('Raduce mathod' , function () {
+            it('Reduce take  collback func with 2 arg ' , function () {
+                const exp = 10;
+                SAList.push(1);
+                SAList.push(2);
+                SAList.push(3);
+                SAList.push(4);
+                const act = SAList.reduce((x,y) => x + y);
+
+                assert.deepEqual(exp , act);
+            });
+        });
+
+        describe('Reverse method',function () {
+            it('reverse of array',function () {
+                const exp =[4,3,2,1];
+                SAList.push(1);
+                SAList.push(2);
+                SAList.push(3);
+                SAList.push(4);
+                const act = SAList.reverse();
+
+                assert.deepEqual(exp,act);
+            })
+        })
+
+    });
 });
 
 describe('LinkedList', function () {
@@ -778,33 +833,63 @@ describe('LinkedList', function () {
             assert.equal(exp, act)
         })
     })
-    describe('Super AList', function () {
+    describe('Super LList', function () {
         beforeEach(function () {
-            SAList.clearList();
+            SLlist.clearList();
         });
 
         describe('Map mathod' , function () {
             it('Map get argument in view of callback function with one arg and return new array' , function () {
-                const exp = [2 , 4 , 6 , 8];
-                aList.push(1);
-                aList.push(2);
-                aList.push(3);
-                aList.push(4);
-                const act = SAList.map(function (val){return val*2});
 
-                assert.deepEqual(exp , act);
+                SLlist.push(1);
+                SLlist.push(2);
+                SLlist.push(3);
+                SLlist.push(4);
+                const act = SLlist.map(x => x * 2);
+
+                assert.deepEqual('2,4,6,8' , act.toString());
             });
 
-            it('Map get argument in view of callback function with one arg and return new array' , function () {
-                const exp = [3 , 6 , 9 , 12];
-                aList.push(1);
-                aList.push(2);
-                aList.push(3);
-                aList.push(4);
-                const act = SAList.map(function (val){return val*3});
+        });
+        describe('Raduce mathod' , function () {
+            it('Reduce take  collback func with 2 arg ' , function () {
+                const exp = 10;
+                SLlist.push(1);
+                SLlist.push(2);
+                SLlist.push(3);
+                SLlist.push(4);
+                const act = SLlist.reduce((x,y) => x + y);
 
                 assert.deepEqual(exp , act);
             });
         });
+
+
+        describe('Reverse method', function () {
+            it('Reverse method get array and return reversed array', function () {
+                const exp = 1;
+                SLlist.push(4);
+                SLlist.push(3);
+                SLlist.push(2);
+                SLlist.push(1);
+                SLlist.reverse();
+                const act = SLlist.root.head.el
+
+                assert.deepEqual(exp, act);
+            });
+
+            it('Reverse method get array and return reversed array', function () {
+                const exp = 2;
+                SLlist.push(4);
+                SLlist.push(3);
+                SLlist.push(2);
+                SLlist.push(1);
+                SLlist.reverse();
+                const act = SLlist.root.head.next.el
+
+                assert.deepEqual(exp, act);
+            });
+        });
     });
+
 });

@@ -138,33 +138,43 @@ AList.prototype.toLinkedList = function () {
     return tmpLinked;
 };
 
-function superAList() {
+function SuperAlist() {
     AList.apply(this, arguments)
 };
 
-superAList.prototype = Object.create(AList.prototype);
-superAList.prototype.constructor = superAList;
+SuperAlist.prototype = Object.create(AList.prototype);
+SuperAlist.prototype.constructor = SuperAlist;
 
-const SAList = new superAList();
+const SAList = new SuperAlist();
 
-superAList.prototype.map = function (callback) {
+SuperAlist.prototype.map = function (callback) {
     const resultArray = [];
-    for (let i = 0; i < this.length; index++) {
-        resultArray.push(callback(this[i], i, this));
+    for (let i = 0; i < this.collection.length; i++) {
+        resultArray.push(callback(this.collection[i], i, this.collection));
     }
     return resultArray;
 };
 
-superAList.prototype.reduce = function(callback, initialVal) {
+SuperAlist.prototype.reduce = function(callback, initialVal) {
     var accumulator = (initialVal === undefined) ? undefined : initialVal;
-    for (var i = 0; i < this.length; i++) {
+    for (var i = 0; i < this.collection.length; i++) {
         if (accumulator !== undefined)
-            accumulator = callback.call(undefined, accumulator, this[i], i, this);
+            accumulator = callback.call(undefined, accumulator, this.collection[i], i, this.collection);
         else
-            accumulator = this[i];
+            accumulator = this.collection[i];
     }
     return accumulator;
 };
+
+SuperAlist.prototype.reverse = function () {
+    let tmpArr =[];
+    for (let i = 0;i< (Math.floor(this.size()/2));i++){
+       tmpArr[i] = this.collection[i];
+       this.collection[i] = this.collection[this.size()-i-1];
+       this.collection[this.size()-i-1] = tmpArr[i];
+   }
+    return this.collection;
+}
 
 /*----------Linked List---------*/
 const lList = new LList();
@@ -206,9 +216,7 @@ LList.prototype.push = function (el) {
     }else{
         newNode.prev = this.root.tail;
         this.root.tail.next = newNode;
-
         this.root.tail = newNode;
-
         newNode.next = this.root;
     }
     this.root.length++;
@@ -304,4 +312,55 @@ LList.prototype.sort = function (compare) {
             }
         }
     }
+};
+
+function SuperLlist() {
+    LList.apply(this, arguments)
+};
+
+SuperLlist.prototype = Object.create(LList.prototype);
+SuperLlist.prototype.constructor = SuperLlist;
+
+const SLlist = new SuperLlist();
+
+SuperLlist.prototype.map = function (callback) {
+    let tmpList = new SuperLlist(),
+        i = 0,
+        node = this.root.head;
+    while (node.next){
+        tmpList.push(callback(node.el, i,SuperLlist))
+        node = node.next;
+        i++;
+
+    }
+    return tmpList;
+};
+SuperLlist.prototype.reduce = function (callback,initialVal){
+    let accumulator = 0;
+        if (initialVal) accumulator = initialVal;
+    let i = 0,
+        node = this.root.head;
+    while (node.next && node.next != null){
+        accumulator = callback(accumulator,node.el, i,SuperLlist);
+        node = node.next;
+        i++;
+    }
+    return accumulator;
+};
+SuperLlist.prototype.reverse = function (){
+    let  node = this.root.head;
+    this.root.head = this.root.tail;
+    this.root.tail = node;
+    let count = 0;
+    let prev = this.root;
+    let next;
+    while (count < this.size()){
+        next = node.next;
+        node.prev = next;
+        node.next = prev;
+        prev = node;
+        node = next;
+        count++;
+    }
+    return this;
 };
